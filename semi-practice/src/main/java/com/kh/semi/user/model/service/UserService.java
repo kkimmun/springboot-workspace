@@ -1,0 +1,26 @@
+package com.kh.semi.user.model.service;
+
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import com.kh.semi.user.model.dao.UserMapper;
+import com.kh.semi.user.model.dto.UserDto;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@Service
+@RequiredArgsConstructor
+public class UserService {
+
+	private final UserMapper userMapper;
+	private final PasswordEncoder passwordEncoder;
+	
+	public void signUp(UserDto user) {
+		
+		
+		
+	}
+	
+}
