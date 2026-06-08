@@ -1,0 +1,28 @@
+package com.kh.semi.member.model.service;
+
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import com.kh.semi.member.model.dao.MemberMapper;
+import com.kh.semi.member.model.dto.MemberDto;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@Service
+@RequiredArgsConstructor
+public class MemberService {
+
+	private final MemberMapper memberMapper;
+	private final PasswordEncoder passwordEncoder;
+	
+	public void signUp(MemberDto member) {
+		
+		// 비밀번호 암호화 
+		
+		
+		
+		memberMapper.signUp(member);
+	}
+	}

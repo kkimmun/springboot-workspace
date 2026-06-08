@@ -1,0 +1,5 @@
+package com.kh.semi.auth.model.vo;
+
+public class CustomUserDetails {
+
+}

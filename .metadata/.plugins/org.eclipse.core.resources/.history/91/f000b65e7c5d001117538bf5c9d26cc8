@@ -1,0 +1,5 @@
+package com.kh.semi.member.model.dto;
+
+public class ErrorResponse {
+
+}

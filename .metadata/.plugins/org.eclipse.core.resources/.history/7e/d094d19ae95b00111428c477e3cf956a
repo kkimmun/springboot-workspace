@@ -1,0 +1,36 @@
+package com.kh.study.exception;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+
+import com.kh.study.util.ErrorResponse;
+
+@ControllerAdvice
+public class GlobalExceptionHandler {
+	
+	@ExceptionHandler(MethodArgumentNotValidException.class)
+	public ResponseEntity<Map<String, String>> hadleValidation(MethodArgumentNotValidException e){
+		Map<String, String> errors = new HashMap();
+		//System.out.println(e.getBindingResult().getFieldErrors());
+		e.getBindingResult().getFieldErrors().forEach(err -> errors.put(err.getField(), err.getDefaultMessage()));
+		ErrorResponse er = new ErrorResponse(4,"잘못된 파라미터", errors);
+		return ResponseEntity.badRequest().body(errors);
+	}
+	
+	@ExceptionHandler(ResourceNotFoundException.class)
+	public ResponseEntity<String> hadleNotFound(ResourceNotFoundException e){
+		ErrorResponse er = new ErrorResponse(44,e.getMessage(), null);
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+	}
+	
+	
+	
+	
+	
+}

@@ -1,0 +1,5 @@
+package com.kh.study.busan.model.domain;
+
+public class Rating {
+
+}

@@ -1,0 +1,13 @@
+package com.kh.semi.user.model.dao;
+
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Mapper;
+
+import com.kh.semi.user.model.dto.UserDto;
+
+@Mapper
+public class UserMapper {
+
+	@Insert("INSERT INTO SEMI_PRACTICE_USER (USER_NO, USER_ID, USER_PWD, USER_NAME, EMAIL, ROLE, STATUS) VALUES (#userNo, userId, userPwd, userName, email, role, 'Y')")
+	public int signUp(UserDto user);
+}

@@ -1,0 +1,95 @@
+package com.kh.study.busan.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.kh.study.busan.model.dto.ReviewDto;
+import com.kh.study.busan.model.dto.UpdateReviewDto;
+import com.kh.study.busan.model.service.BusanService;
+
+import io.swagger.v3.oas.annotations.tags.Tag;
+
+
+@Tag(name="부산 맛집 API", description="맛집 조회 및 리뷰 API")
+@RestController
+@RequestMapping("/api/busans")
+@CrossOrigin("*")
+public class BusanController {
+
+	@Autowired
+	private BusanService service;
+	
+	@GetMapping
+	public String getRes(@RequestParam(name="page") int page) {
+		return service.getRes(page);
+	}
+	
+	@GetMapping("/{seq}")
+	public String getDetail(@PathVariable(name="seq") int seq) {
+		return service.getDetail(seq);
+	}
+	@PostMapping("/{seq}/reviews")
+	public ResponseEntity<?> save(@PathVariable(value="seq") Long ucSeq, @RequestBody ReviewDto review){
+		service.save(ucSeq,review);
+		return ResponseEntity.status(HttpStatus.CREATED).build();
+	}
+	@GetMapping("/{seq}/reviews")
+	public ResponseEntity<List<ReviewDto>> findBySeq(@PathVariable(value="seq")Long ucSeq){
+		List<ReviewDto> reviews = service.findBySeq(ucSeq);
+		return ResponseEntity.ok(reviews);
+	}
+	
+	// 리뷰를 수정하는 기능 + 리뷰를 삭제하는 기능
+	// @PutMapping => 전체 수정 		=> 요청 받을 때 DTO 모든 필드에 값이 존재해야함
+	// @PatchMapping => 부분 수정		=> 요청 받을 때 DTO 바꾸고 싶은 필드만 값이 존재해도 됨
+	@PatchMapping("/{seq}/reviews")
+	public ResponseEntity<Void> update(@PathVariable(value="seq") Long ucSeq,
+									   @RequestBody UpdateReviewDto urd){
+		
+		// Method : Patch
+		
+		// /api/busans/70/reviews
+		// { "content": "원본내용",
+		//  "updateContent":"바꾸고 싶은 내용"}
+		service.update(ucSeq,urd);
+		
+		
+		return ResponseEntity.ok().build();
+	}
+	
+	// @DeleteMapping => 삭제
+	// api/busans/70/reviews/리뷰번호
+	@DeleteMapping("/{seq}/reviews")
+	public ResponseEntity<Void> delete(@PathVariable(value="seq") Long ucSeq,
+									   @RequestBody UpdateReviewDto urd){
+		
+		// Method : DELETE
+		// { "content : 원본내용" }
+		service.delete(ucSeq, urd);
+		return ResponseEntity.noContent().build();
+	}
+	
+	// 생성 201 CREATED, 삭제 204 NO CONTENT, 조회 / 수정 200 OK
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}

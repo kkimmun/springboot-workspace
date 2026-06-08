@@ -1,0 +1,15 @@
+package com.kh.semi.user.controller;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import com.kh.semi.user.model.dto.UserDto;
+
+public class UserController {
+	private final UserService userService;
+	
+	@PostMapping
+	public ResponseEntity<Void> signUp(UserDto user){
+		
+	}
+}

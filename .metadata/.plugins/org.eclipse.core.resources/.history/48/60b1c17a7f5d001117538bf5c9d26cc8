@@ -1,0 +1,27 @@
+package com.kh.semi.exception;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import com.kh.semi.member.model.dto.ErrorResponse;
+
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@RestControllerAdvice
+public class GlobalExceptionHandler {
+
+	@ExceptionHandler(DuplicateMemberIdException.class)
+	public ResponseEntity<ErrorResponse> handlerDuplicateId(DuplicateMemberIdException e){
+		ErrorResponse er = new ErrorResponse(400, e.getMessage(), null);
+		return ResponseEntity.badRequest().body(er);
+		
+		}
+	
+	@ExceptionHandler(FailSignUpException.class)
+	public ResponseEntity<ErrorResponse> handlerFailSignUp(FailSignUpException e){
+		
+	}
+	
+}

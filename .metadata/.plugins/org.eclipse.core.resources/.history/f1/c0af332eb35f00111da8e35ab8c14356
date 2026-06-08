@@ -1,0 +1,5 @@
+package com.kh.semi.token.model.dao;
+
+public interface TokenMapper {
+
+}

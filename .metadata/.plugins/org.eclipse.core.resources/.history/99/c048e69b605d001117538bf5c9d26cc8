@@ -1,0 +1,29 @@
+package com.kh.semi.configuration;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.web.SecurityFilterChain;
+
+@Configuration
+public class SecurityConfig {
+
+	@Bean
+	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+		
+		// return http.formLogin().disable().build(); <-- 구시대적 문법
+		// 신시대 문법
+//		return http.formLogin(new Customizer<FormLoginConfigurer<HttpSecurity>>() {
+//			@Override
+//			public void customize(FormLoginConfigurer<HttpSecurity> t) {
+//				t.disable();
+//				
+//			}
+//		}).build();
+		//return http.formLogin(t -> t.disable()).build();
+		return http.formLogin(AbstractHttpConfigurer::disable).build();
+		
+	}
+	
+}

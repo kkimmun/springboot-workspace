@@ -1,0 +1,22 @@
+package com.kh.study.exception;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+
+@ControllerAdvice
+public class GlobalExceptionHandler {
+	
+	@ExceptionHandler(MethodArgumentNotValidException.class)
+	public ResponseEntity<Map<String, String>> hadleValidation(MethodArgumentNotValidException e){
+		Map<String, String> errors = new HashMap();
+		//System.out.println(e.getBindingResult().getFieldErrors());
+		e.getBindingResult().getFieldErrors().forEach(err -> errors.put(err.getField(), err.getDefaultMessage()));
+		return ResponseEntity.badRequest().body(errors);
+	}
+	
+}

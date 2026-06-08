@@ -1,0 +1,12 @@
+package com.kh.semi.user.model.dto;
+
+
+
+public class UserDto {
+	private int userNo;
+	private String userId;
+	private String userPwd;
+	private String userName;
+	private String email;
+	private String status;
+}
